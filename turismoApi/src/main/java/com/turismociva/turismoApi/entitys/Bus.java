@@ -19,7 +19,7 @@ public class Bus {
     @Column(nullable =false, unique=true)
     private String placa;
 
-    @Column(nullable = true, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
     private String caracteristicas;
