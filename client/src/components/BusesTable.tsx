@@ -78,69 +78,71 @@ export default function BusesTable() {
         {/* Se muestran los buses despues de realizr la request a la Api */}
         <div className="overflow-x-hidden">
           {loading ? (
-            <div className="flex items-center justify-center py-20">
+            <div className="flex items-center justify-center py-20 h-96">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-800"></div>
             </div>
           ) : buses.length === 0 ? (
             <div className="text-center py-20 text-gray-200">No hay buses</div>
           ) : (
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-blue-50 via-whte to-indigo-50">
-                <tr>
-                  <th className="th-cell">ID</th>
-                  <th className="th-cell">Número de Bus</th>
-                  <th className="th-cell">Placa</th>
-                  <th className="th-cell">Marca</th>
-                  <th className="th-cell">Características</th>
-                  <th className="th-cell">Activo</th>
-                  <th className="th-cell">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {buses.map((bus) => (
-                  <tr className="tbody-row" key={bus.id}>
-                    <td className="tbody-tds">{bus.id}</td>
-                    <td className="tbody-tds">{bus.numeroBus}</td>
-                    <td className="tbody-tds">{bus.placa}</td>
-                    <td className="tbody-tds">{bus.marca?.nombre}</td>
-                    <td className="tbody-tds">{bus.caracteristicas}</td>
-                    <td className="tbody-tds">
-                      <span
-                        className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          bus.activo
-                            ? "bg-green-100 text-green-800"
-                            : "bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        {bus.activo ? "activo" : "inactivo"}
-                      </span>
-                    </td>
-                    <td className="tbody-tds">
-                      <button
-                        className="bg-violet-600 hover:bg-violet-400 transition-colors rounded-md text-white p-2 text-sm"
-                        onClick={() => handleShowDetails(bus.id)}
-                      >
-                        <Eye/>
-                      </button>
-                    </td>
+            <div className="relative w-full h-96 overflow-auto">
+              <table className="w-full absolute inset-0">
+                <thead className="bg-gradient-to-r from-blue-50 via-whte to-indigo-50">
+                  <tr>
+                    <th className="th-cell">ID</th>
+                    <th className="th-cell">Número de Bus</th>
+                    <th className="th-cell">Placa</th>
+                    <th className="th-cell">Marca</th>
+                    <th className="th-cell">Características</th>
+                    <th className="th-cell">Activo</th>
+                    <th className="th-cell">Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {buses.map((bus) => (
+                    <tr className="tbody-row" key={bus.id}>
+                      <td className="tbody-tds">{bus.id}</td>
+                      <td className="tbody-tds">{bus.numeroBus}</td>
+                      <td className="tbody-tds">{bus.placa}</td>
+                      <td className="tbody-tds">{bus.marca?.nombre}</td>
+                      <td className="tbody-tds">{bus.caracteristicas}</td>
+                      <td className="tbody-tds">
+                        <span
+                          className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            bus.activo
+                              ? "bg-green-100 text-green-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {bus.activo ? "activo" : "inactivo"}
+                        </span>
+                      </td>
+                      <td className="tbody-tds">
+                        <button
+                          className="bg-violet-600 hover:bg-violet-400 transition-colors rounded-md text-white p-2 text-sm"
+                          onClick={() => handleShowDetails(bus.id)}
+                        >
+                          <Eye />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
         {/* paginacion de buses */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
           <div className="text-sm text-gray-700">
-            Showing{" "}
+            Mostrando{" "}
             <span className="font-semibold">
               {buses.length === 0 ? 0 : (currentPage - 1) * ITEMS_PER_PAGE + 1}
             </span>{" "}
-            to{" "}
+            hasta{" "}
             <span className="font-semibold">
               {Math.min(currentPage * ITEMS_PER_PAGE, totalCount)}
             </span>{" "}
-            of <span className="font-semibold">{totalCount}</span> products
+            de <span className="font-semibold">{totalCount}</span> buses
           </div>
 
           <div className="flex items-center gap-2">

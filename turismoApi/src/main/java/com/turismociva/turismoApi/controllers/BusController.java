@@ -30,4 +30,10 @@ public class BusController {
         return busService.obtenerPorId(id)
                 .orElseThrow(() -> new RuntimeException("Bus no encontrado"));
     }
+
+    // POST /bus/create
+    @PostMapping("/create")
+    public Bus guarderBus(@RequestBody Bus bus) {
+        return busService.createNewBus(bus);
+    }
 }
